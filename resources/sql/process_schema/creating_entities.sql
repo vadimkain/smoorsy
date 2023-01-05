@@ -1,9 +1,3 @@
-CREATE TABLE IF NOT EXISTS process_schema.lessons
-(
-    id    SERIAL PRIMARY KEY NOT NULL,
-    title varchar(64) UNIQUE NOT NULL
-    );
-
 CREATE TABLE IF NOT EXISTS process_schema.homeworks
 (
     lesson_teacher_class SERIAL REFERENCES organization_schema.lessons_teachers_classes (id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
@@ -12,7 +6,7 @@ CREATE TABLE IF NOT EXISTS process_schema.homeworks
     "temp"               TIMESTAMP                                                                                               NOT NULL,
     description          varchar(600)                                                                                            NOT NULL,
     file                 TEXT
-    );
+);
 
 CREATE TABLE IF NOT EXISTS process_schema.schedules
 (
@@ -23,7 +17,7 @@ CREATE TABLE IF NOT EXISTS process_schema.schedules
     time_end             TIME CHECK ( time_begin < time_end )                                                                    NOT NULL,
     rest_time            TIME                                                                                                    NOT NULL,
     CONSTRAINT UC_schedules UNIQUE (lesson_teacher_class, time_begin, time_end, day_of_week)
-    );
+);
 
 CREATE TABLE IF NOT EXISTS process_schema.grade_diary
 (
@@ -31,4 +25,4 @@ CREATE TABLE IF NOT EXISTS process_schema.grade_diary
     "date"               DATE DEFAULT CURRENT_DATE                                                                               NOT NULL,
     grade                SMALLINT CHECK ( 1 <= grade_diary.grade AND grade_diary.grade <= 12 )                                   NOT NULL,
     learner_id           SERIAL REFERENCES roles_schema.learner (user_id) ON DELETE CASCADE ON UPDATE CASCADE                    NOT NULL
-    );
+);
