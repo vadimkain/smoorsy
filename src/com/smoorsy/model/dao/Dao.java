@@ -4,13 +4,23 @@ import java.util.List;
 import java.util.Optional;
 
 public interface Dao<K, T> {
-    List<T> findAll();
+    default List<T> findAll() {
+        return null;
+    }
 
-    Optional<T> findById(K id);
+    default Optional<T> findById(K key) {
+        return Optional.empty();
+    }
 
-    boolean delete(K id);
+    default boolean delete(K key) {
+        return false;
+    }
 
-    Optional<T> update(T entity);
+    default Optional<T> update(T entity) {
+        return Optional.empty();
+    }
 
-    Optional<T> save(T entity);
+    default Optional<T> insert(T entity) {
+        return Optional.empty();
+    }
 }

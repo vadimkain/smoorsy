@@ -65,13 +65,22 @@ public class UserDao implements Dao<Long, User> {
     }
 
     @Override
-    public Optional<User> findById(Long id) {
+    public Optional<User> findById(Long key) {
+        try (
+                Connection connection = ConnectionManager.get();
+        ) {
+            return findById(key, connection);
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    public Optional<User> findById(Long id, Connection connection) {
         String SQL = """
                 SELECT id, surname, name, patronymic, birthday, email, password FROM users_schema.users WHERE id = ?;
                 """;
 
         try (
-                Connection connection = ConnectionManager.get();
                 PreparedStatement preparedStatement = connection.prepareStatement(SQL);
         ) {
             preparedStatement.setLong(1, id);
@@ -92,7 +101,7 @@ public class UserDao implements Dao<Long, User> {
     }
 
     @Override
-    public boolean delete(Long id) {
+    public boolean delete(Long key) {
         String SQL = """
                 DELETE FROM users_schema.users WHERE id = ?;
                 """;
@@ -101,7 +110,7 @@ public class UserDao implements Dao<Long, User> {
                 Connection connection = ConnectionManager.get();
                 PreparedStatement preparedStatement = connection.prepareStatement(SQL);
         ) {
-            preparedStatement.setLong(1, id);
+            preparedStatement.setLong(1, key);
 
             return preparedStatement.executeUpdate() > 0;
 
@@ -147,7 +156,7 @@ public class UserDao implements Dao<Long, User> {
     }
 
     @Override
-    public Optional<User> save(User entity) {
+    public Optional<User> insert(User entity) {
         String SQL = """
                 INSERT INTO users_schema.users (surname, name, patronymic, birthday, email, password) 
                 VALUES (?, ?, ?, ?, ?, ?); 
