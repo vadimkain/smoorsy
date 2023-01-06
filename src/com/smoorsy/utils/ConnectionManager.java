@@ -52,7 +52,7 @@ public class ConnectionManager {
         }
     }
 
-    private static Connection get() {
+    public static Connection get() {
         try {
             return pool.take();
         } catch (InterruptedException e) {
