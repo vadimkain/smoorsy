@@ -1,3 +1,4 @@
+CREATE SCHEMA IF NOT EXISTS roles_schema;
 CREATE TABLE IF NOT EXISTS roles_schema.learner
 (
     user_id SERIAL REFERENCES users_schema.users (id) ON DELETE CASCADE NOT NULL UNIQUE

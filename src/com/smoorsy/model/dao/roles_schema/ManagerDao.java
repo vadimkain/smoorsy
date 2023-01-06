@@ -3,40 +3,45 @@ package com.smoorsy.model.dao.roles_schema;
 import com.smoorsy.model.dao.Dao;
 import com.smoorsy.model.dao.exception.DaoException;
 import com.smoorsy.model.dao.users_schema.UserDao;
-import com.smoorsy.model.entity.roles_schema.Learner;
+import com.smoorsy.model.entity.roles_schema.ClassroomTeacher;
+import com.smoorsy.model.entity.roles_schema.Manager;
 import com.smoorsy.utils.ConnectionManager;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static java.sql.Statement.*;
+import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
-public class LearnerDao implements Dao<Long, Learner> {
-    private static final LearnerDao INSTANCE = new LearnerDao();
+public class ManagerDao implements Dao<Long, Manager> {
+    private static final ManagerDao INSTANCE = new ManagerDao();
 
-    private LearnerDao() {
+    private ManagerDao() {
     }
 
-    public static LearnerDao getInstance() {
+    public static ManagerDao getInstance() {
         return INSTANCE;
     }
 
-    private Learner builderLearner(ResultSet resultSet, Connection connection) {
+    private Manager builderManager(ResultSet resultSet, Connection connection) {
         try {
-            return Learner.builder()
+            return Manager.builder()
                     .user(UserDao.getInstance().findById(resultSet.getLong("user_id"), connection).get())
                     .build();
         } catch (SQLException e) {
             throw new DaoException(e);
         }
+
     }
 
     @Override
-    public List<Learner> findAll() {
+    public List<Manager> findAll() {
         String SQL = """
-                SELECT user_id FROM roles_schema.learner
+                SELECT user_id FROM roles_schema.manager;
                 """;
         try (
                 Connection connection = ConnectionManager.get();
@@ -45,13 +50,13 @@ public class LearnerDao implements Dao<Long, Learner> {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            List<Learner> learners = new ArrayList<>();
+            List<Manager> managers = new ArrayList<>();
 
             while (resultSet.next()) {
-                learners.add(builderLearner(resultSet, connection));
+                managers.add(builderManager(resultSet, connection));
             }
 
-            return learners;
+            return managers;
 
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -59,9 +64,9 @@ public class LearnerDao implements Dao<Long, Learner> {
     }
 
     @Override
-    public Optional<Learner> findById(Long key) {
+    public Optional<Manager> findById(Long key) {
         String SQL = """
-                SELECT user_id FROM roles_schema.learner WHERE user_id = ?;
+                SELECT user_id FROM roles_schema.manager WHERE user_id = ?;
                 """;
         try (
                 Connection connection = ConnectionManager.get();
@@ -71,13 +76,13 @@ public class LearnerDao implements Dao<Long, Learner> {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            Learner learner = null;
+            Manager manager = null;
 
             if (resultSet.next()) {
-                learner = builderLearner(resultSet, connection);
+                manager = builderManager(resultSet, connection);
             }
 
-            return Optional.ofNullable(learner);
+            return Optional.ofNullable(manager);
 
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -87,7 +92,7 @@ public class LearnerDao implements Dao<Long, Learner> {
     @Override
     public boolean delete(Long key) {
         String SQL = """
-                DELETE FROM roles_schema.learner WHERE user_id = ?;
+                DELETE FROM roles_schema.manager WHERE user_id = ?;
                 """;
         try (
                 Connection connection = ConnectionManager.get();
@@ -103,9 +108,9 @@ public class LearnerDao implements Dao<Long, Learner> {
     }
 
     @Override
-    public Optional<Learner> insert(Learner entity) {
+    public Optional<Manager> insert(Manager entity) {
         String SQL = """
-                INSERT INTO roles_schema.learner (user_id) VALUES (?);
+                INSERT INTO roles_schema.manager (user_id) VALUES (?);
                 """;
         try (
                 Connection connection = ConnectionManager.get();
@@ -117,13 +122,13 @@ public class LearnerDao implements Dao<Long, Learner> {
 
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
 
-            Learner learner = null;
+            Manager manager = null;
 
             if (generatedKeys.next()) {
-                learner = builderLearner(generatedKeys, connection);
+                manager = builderManager(generatedKeys, connection);
             }
 
-            return Optional.ofNullable(learner);
+            return Optional.ofNullable(manager);
 
         } catch (SQLException e) {
             throw new DaoException(e);

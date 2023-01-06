@@ -1,3 +1,5 @@
+CREATE SCHEMA IF NOT EXISTS organization_schema;
+
 CREATE TABLE IF NOT EXISTS organization_schema.departments
 (
     id   SERIAL PRIMARY KEY NOT NULL,

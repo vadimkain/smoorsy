@@ -1,3 +1,4 @@
+CREATE SCHEMA IF NOT EXISTS process_schema;
 CREATE TABLE IF NOT EXISTS process_schema.homeworks
 (
     lesson_teacher_class SERIAL REFERENCES organization_schema.lessons_teachers_classes (id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
