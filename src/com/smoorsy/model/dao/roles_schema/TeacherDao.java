@@ -64,11 +64,18 @@ public class TeacherDao implements Dao<Long, Teacher> {
 
     @Override
     public Optional<Teacher> findById(Long key) {
+        try (Connection connection = ConnectionManager.get()) {
+            return findById(key, connection);
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    public Optional<Teacher> findById(Long key, Connection connection) {
         String SQL = """
                 SELECT user_id FROM roles_schema.teacher WHERE user_id = ?;
                 """;
         try (
-                Connection connection = ConnectionManager.get();
                 PreparedStatement preparedStatement = connection.prepareStatement(SQL);
         ) {
             preparedStatement.setLong(1, key);

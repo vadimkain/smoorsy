@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Learner_and_Class {
     private Learner learner;
-    private com.smoorsy.model.entity.organization_schema.aClass aClass;
+    private aClass aClass;
 }

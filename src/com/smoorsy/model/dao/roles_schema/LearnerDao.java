@@ -60,11 +60,18 @@ public class LearnerDao implements Dao<Long, Learner> {
 
     @Override
     public Optional<Learner> findById(Long key) {
+        try (Connection connection = ConnectionManager.get()) {
+            return findById(key, connection);
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    public Optional<Learner> findById(Long key, Connection connection) {
         String SQL = """
                 SELECT user_id FROM roles_schema.learner WHERE user_id = ?;
                 """;
         try (
-                Connection connection = ConnectionManager.get();
                 PreparedStatement preparedStatement = connection.prepareStatement(SQL);
         ) {
             preparedStatement.setLong(1, key);

@@ -3,7 +3,6 @@ package com.smoorsy.model.dao.roles_schema;
 import com.smoorsy.model.dao.Dao;
 import com.smoorsy.model.dao.exception.DaoException;
 import com.smoorsy.model.dao.users_schema.UserDao;
-import com.smoorsy.model.entity.roles_schema.ClassroomTeacher;
 import com.smoorsy.model.entity.roles_schema.Manager;
 import com.smoorsy.utils.ConnectionManager;
 
@@ -65,11 +64,18 @@ public class ManagerDao implements Dao<Long, Manager> {
 
     @Override
     public Optional<Manager> findById(Long key) {
+        try (Connection connection = ConnectionManager.get()) {
+            return findById(key, connection);
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    public Optional<Manager> findById(Long key, Connection connection) {
         String SQL = """
                 SELECT user_id FROM roles_schema.manager WHERE user_id = ?;
                 """;
         try (
-                Connection connection = ConnectionManager.get();
                 PreparedStatement preparedStatement = connection.prepareStatement(SQL);
         ) {
             preparedStatement.setLong(1, key);
