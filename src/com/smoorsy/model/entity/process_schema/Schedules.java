@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Data
 @NoArgsConstructor
@@ -15,4 +16,7 @@ import java.time.LocalDate;
 public class Schedules {
     private Lesson_Teacher_Class lessonTeacherClass;
     private LocalDate day_of_week;
+    private LocalTime time_begin;
+    private LocalTime time_end;
+    private LocalTime rest_time;
 }

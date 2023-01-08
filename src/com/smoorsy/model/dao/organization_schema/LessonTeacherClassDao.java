@@ -5,7 +5,6 @@ import com.smoorsy.model.dao.exception.DaoException;
 import com.smoorsy.model.dao.process_schema.LessonDao;
 import com.smoorsy.model.dao.roles_schema.TeacherDao;
 import com.smoorsy.model.entity.organization_schema.Lesson_Teacher_Class;
-import com.smoorsy.model.entity.process_schema.Lesson;
 import com.smoorsy.utils.ConnectionManager;
 
 import java.sql.*;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class LessonTeacherClassDao implements Dao<Lesson, Lesson_Teacher_Class> {
+public class LessonTeacherClassDao implements Dao<Long, Lesson_Teacher_Class> {
     private static final LessonTeacherClassDao INSTANCE = new LessonTeacherClassDao();
 
     private LessonTeacherClassDao() {
@@ -61,16 +60,20 @@ public class LessonTeacherClassDao implements Dao<Lesson, Lesson_Teacher_Class> 
     }
 
     @Override
-    public Optional<Lesson_Teacher_Class> findById(Lesson key) {
-        return Dao.super.findById(key);
+    public Optional<Lesson_Teacher_Class> findById(Long key) {
+        try (Connection connection = ConnectionManager.get()) {
+            return findById(key, connection);
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
     }
 
-    public Optional<Lesson_Teacher_Class> findById(Lesson key, Connection connection) {
+    public Optional<Lesson_Teacher_Class> findById(Long key, Connection connection) {
         String SQL = """
                 SELECT id, teacher_id, class_id, lesson_id FROM organization_schema.lessons_teachers_classes WHERE id = ?;
                 """;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL);) {
-            preparedStatement.setLong(1, key.getId());
+            preparedStatement.setLong(1, key);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -88,7 +91,7 @@ public class LessonTeacherClassDao implements Dao<Lesson, Lesson_Teacher_Class> 
     }
 
     @Override
-    public boolean delete(Lesson key) {
+    public boolean delete(Long key) {
         String SQL = """
                 DELETE FROM organization_schema.lessons_teachers_classes WHERE id = ?;
                 """;
@@ -96,7 +99,7 @@ public class LessonTeacherClassDao implements Dao<Lesson, Lesson_Teacher_Class> 
                 Connection connection = ConnectionManager.get();
                 PreparedStatement preparedStatement = connection.prepareStatement(SQL);
         ) {
-            preparedStatement.setLong(1, key.getId());
+            preparedStatement.setLong(1, key);
 
             return preparedStatement.executeUpdate() > 0;
 

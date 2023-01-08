@@ -16,5 +16,6 @@ public class Homework {
     private Lesson_Teacher_Class lessonTeacherClass;
     private LocalDate date;
     private LocalDate temp;
+    private String description;
     private String file;
 }
