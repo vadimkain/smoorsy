@@ -11,7 +11,7 @@ public class RegistrationUserMapper implements Adapter<RegistrationUserDto, User
     private RegistrationUserMapper() {
     }
 
-    public RegistrationUserMapper getInstance() {
+    public static RegistrationUserMapper getInstance() {
         return INSTANCE;
     }
 
