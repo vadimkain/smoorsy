@@ -7,4 +7,5 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}static/bootstrap/css/bootstrap.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css" type="text/css">
+<script src="${pageContext.request.contextPath}static/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
