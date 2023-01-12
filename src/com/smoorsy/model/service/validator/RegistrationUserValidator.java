@@ -1,7 +1,10 @@
 package com.smoorsy.model.service.validator;
 
 import com.smoorsy.model.dto.RegistrationUserDto;
+import com.smoorsy.model.service.mapper.RegistrationUserMapper;
 import com.smoorsy.utils.LocalDateFormatter;
+
+import java.time.LocalDate;
 
 public class RegistrationUserValidator implements Validator<RegistrationUserDto> {
     private static final RegistrationUserValidator INSTANCE = new RegistrationUserValidator();
@@ -38,10 +41,17 @@ public class RegistrationUserValidator implements Validator<RegistrationUserDto>
             validationResult.add(Error.of("invalid.birthday", "Неверный формат даты"));
         }
 
+        LocalDate birthday = RegistrationUserMapper.getInstance().fromObject(object).getBirthday();
+        boolean birthdayIsAfter = birthday.isAfter(LocalDate.of(LocalDate.now().getYear() - 6, 1, 1));
+        boolean birthdayIsBefore = birthday.isBefore(LocalDate.of(LocalDate.now().getYear() - 100, 1, 1));
+
+        if (LocalDateFormatter.isValid(object.getBirthday()) && (birthdayIsBefore || birthdayIsAfter)) {
+            validationResult.add(Error.of("invalid.birthday", "Указан нереальный возраст (можно только от 6 до 100 лет)"));
+        }
+
         if (!object.getEmail().toLowerCase().matches(regexEmail) || 120 < object.getEmail().length()) {
             validationResult.add(Error.of("invalid.email", "Неверный формат почты"));
         }
-
 
         return validationResult;
     }

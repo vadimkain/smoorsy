@@ -11,9 +11,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import static com.smoorsy.utils.UrlPath.GET_STATIC_CONTENT_FILTER;
+import static com.smoorsy.utils.UrlPath.GET_STATIC_CONTENT;
 
-@WebServlet(urlPatterns = GET_STATIC_CONTENT_FILTER + "/*")
+@WebServlet(urlPatterns = GET_STATIC_CONTENT + "/*")
 public class GetStaticContentServlet extends HttpServlet {
 
     private final GetStaticContentService content = GetStaticContentService.getInstance();
