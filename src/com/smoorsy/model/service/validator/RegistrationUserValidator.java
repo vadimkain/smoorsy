@@ -17,6 +17,7 @@ public class RegistrationUserValidator implements Validator<RegistrationUserDto>
     }
 
 
+    // TODO: добавить проверку на размер введённых значений
     @Override
     public ValidationResult isValid(RegistrationUserDto object) {
 

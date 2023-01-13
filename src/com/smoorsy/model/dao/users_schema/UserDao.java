@@ -39,6 +39,33 @@ public class UserDao implements Dao<Long, User> {
         }
     }
 
+    public Optional<User> findByEmailAndPassword(String email, String password) {
+        String SQL = """
+                SELECT id, surname, name, patronymic, birthday, email, password FROM users_schema.users WHERE email = ? AND password = ?;
+                """;
+        try (
+                Connection connection = ConnectionManager.get();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+        ) {
+
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            User user = null;
+
+            if (resultSet.next()) {
+                user = buildUser(resultSet);
+            }
+
+            return Optional.ofNullable(user);
+
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
     @Override
     public List<User> findAll() {
         String SQL = """

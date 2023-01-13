@@ -1,7 +1,9 @@
 package com.smoorsy.controller.servlet;
 
 import com.smoorsy.model.dto.RegistrationUserDto;
+import com.smoorsy.model.dto.UserDto;
 import com.smoorsy.model.service.UserService;
+import com.smoorsy.model.service.validator.Error;
 import com.smoorsy.model.service.validator.exception.ValidationException;
 import com.smoorsy.utils.JspHelper;
 import jakarta.servlet.ServletException;
@@ -11,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import static com.smoorsy.utils.UrlPath.REGISTRATION;
 
@@ -25,7 +28,7 @@ public class RegistrationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RegistrationUserDto userDto = RegistrationUserDto.builder()
+        RegistrationUserDto registrationUserDto = RegistrationUserDto.builder()
                 .surname(req.getParameter("surname"))
                 .name(req.getParameter("name"))
                 .patronymic(req.getParameter("patronymic"))
@@ -35,13 +38,16 @@ public class RegistrationServlet extends HttpServlet {
                 .build();
 
         try {
-            userService.registration(userDto);
-            req.getSession().setAttribute("USER", userDto);
-            System.out.println("Отработало все хорошо");
+            // В сессию всегда кладём dto образа UserDto
+            Optional<UserDto> userDto = userService.registration(registrationUserDto);
+            req.getSession().setAttribute("USER", userDto.get());
+            System.out.println("Регистрация - пользователь был сохранён и добавлен в сессию");
             resp.sendRedirect("/");
         } catch (ValidationException e) {
-            System.out.println("Произошла жопа");
-            req.setAttribute("errors", e.getErrors());
+            System.out.println("Регистрация - валидация не прошла");
+            for (Error error : e.getErrors()) {
+                req.setAttribute(error.getCode(), error.getMessage());
+            }
             doGet(req, resp);
         }
     }
