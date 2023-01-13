@@ -3,22 +3,24 @@
 
 <%@include file="dependencies.jsp" %>
 
-<c:if test="${sessionScope.user == null}">
-    <div class="container">
-        <nav class="navbar navbar-expand-lg" style="min-height: 10vh">
-            <div class="container-fluid">
-                <h2>Smoorsy</h2>
+<div class="container">
+    <nav class="navbar navbar-expand-lg" style="min-height: 10vh">
+        <div class="container-fluid">
+            <h2>Smoorsy</h2>
+            <c:if test="${sessionScope.USER != null}">
                 <address>
-                    <b>Костыли принадлежат</b>
+                    <b>${sessionScope.USER.surname} ${sessionScope.USER.name}</b>
                     <br>
-                    <code style="color: black">+380665431860</code>
+                    <code>${sessionScope.USER.email}</code>
                     <br>
-                    <code style="color: black">kain.vadim50@gmail.com</code>
+                    <form action="${pageContext.request.contextPath}/logout" method="post">
+                        <button type="submit" class="btn btn-primary">Выйти</button>
+                    </form>
                 </address>
-            </div>
-        </nav>
-    </div>
-    <nav class="navbar bg-primary" data-bs-theme="dark" style="height: 3vh">
-        <!-- Navbar content -->
+            </c:if>
+        </div>
     </nav>
-</c:if>
+</div>
+<nav class="navbar bg-primary sticky-top" data-bs-theme="dark" style="min-height: 3vh">
+    <!-- Navbar content -->
+</nav>

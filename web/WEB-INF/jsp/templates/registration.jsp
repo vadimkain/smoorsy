@@ -11,7 +11,7 @@
 <br>
 <h1 class="center">Регистрация</h1>
 <br>
-<form action="/registration" accept-charset="UTF-8" method="post">
+<form action="${pageContext.request.contextPath}/registration" accept-charset="UTF-8" method="post">
     <div class="row">
         <div class="col-lg-4 col-md-12 mb-3">
             <label for="surnameId">Фамилия</label>
