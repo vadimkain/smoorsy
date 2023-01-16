@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS users_schema.users
 );
 
 /* https://metanit.com/sql/postgresql/5.2.php */
-CREATE TYPE users_schema.roles AS ENUM ('LEARNER', 'TEACHER', 'CLASSROOM_TEACHER', 'MANAGER');
+CREATE TYPE users_schema.roles AS ENUM ('LEARNER', 'TEACHER', 'CLASSROOM_TEACHER', 'MANAGER', 'DEVELOPER');
 
 CREATE TABLE IF NOT EXISTS users_schema.users_and_roles
 (

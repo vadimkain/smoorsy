@@ -21,7 +21,6 @@
             <c:if test="${not empty requestScope['error.email']}">
                 <div class="invalid-feedback">Неверно введены данные или отсутствует такой аккаунт</div>
             </c:if>
-            ${not empty requestScope['error.email']}
         </div>
     </div>
     <div class="row">

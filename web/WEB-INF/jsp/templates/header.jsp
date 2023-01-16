@@ -13,6 +13,10 @@
                     <br>
                     <code>${sessionScope.USER.email}</code>
                     <br>
+                    <c:forEach var="item" items="${sessionScope['USER-roles']}">
+                        ${item.role}
+                    </c:forEach>
+                    <br>
                     <form action="${pageContext.request.contextPath}/logout" method="post">
                         <button type="submit" class="btn btn-primary">Выйти</button>
                     </form>
