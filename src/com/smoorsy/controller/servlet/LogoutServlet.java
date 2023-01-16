@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static com.smoorsy.utils.UrlPath.LOGOUT;
-import static com.smoorsy.utils.UrlPath.MAIN_PAGE;
 
 @WebServlet(LOGOUT)
 public class LogoutServlet extends HttpServlet {

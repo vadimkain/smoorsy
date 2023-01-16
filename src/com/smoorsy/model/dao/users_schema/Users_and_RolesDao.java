@@ -85,7 +85,7 @@ public class Users_and_RolesDao implements Dao<User, Users_and_Roles> {
         }
     }
 
-    public List<Users_and_Roles> findAllByUser(User user, String s) {
+    public List<Users_and_Roles> findAllByUser(User user) {
         try (
                 Connection connection = ConnectionManager.get();
         ) {

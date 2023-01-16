@@ -13,10 +13,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.Optional;
 
 import static com.smoorsy.utils.UrlPath.LOGIN;
-import static com.smoorsy.utils.UrlPath.MAIN_PAGE;
 
 @WebServlet(LOGIN)
 public class LoginServlet extends HttpServlet {

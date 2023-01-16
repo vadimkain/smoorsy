@@ -11,7 +11,7 @@ import java.io.IOException;
 
 import static com.smoorsy.utils.UrlPath.MAIN_PAGE;
 
-@WebServlet(MAIN_PAGE)
+@WebServlet("/")
 public class MainPageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
