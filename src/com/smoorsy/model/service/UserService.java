@@ -53,7 +53,7 @@ public class UserService {
 
         User userEntity = registrationUserMapper.fromObject(registrationUserDto);
 
-        // step 3: save
+        // step 3: insert
 
         Optional<User> resultInsertUser = userDao.insert(userEntity);
         userEntity.setId(resultInsertUser.get().getId());
@@ -78,8 +78,6 @@ public class UserService {
         // step 3: find
 
         Optional<User> resultFindUser = userDao.findByEmailAndPassword(loginUserDto.getEmail(), loginUserDto.getPassword());
-
-        // TODO:  поставить проверку на существование пользователя
 
         if (resultFindUser.equals(Optional.empty())) {
             return Optional.empty();

@@ -25,6 +25,15 @@
         </div>
     </nav>
 </div>
-<nav class="navbar bg-primary sticky-top" data-bs-theme="dark" style="min-height: 3vh">
+<nav class="navbar bg-primary sticky-top" data-bs-theme="dark"
+     style="min-height: 3vh; display: flex; justify-content: center; align-content: center;">
     <!-- Navbar content -->
+    <c:forEach var="item" items="${sessionScope['USER-roles']}">
+        <c:if test="${sessionScope.USER != null}">
+            <a href="${pageContext.request.contextPath}/" class="navbar-text link-light" style="text-align: center; margin-right: 1%; margin-left: 1%;">Главная </a>
+            <c:if test="${item.role == 'DEVELOPER'}">
+                <a href="${pageContext.request.contextPath}/departments" class="navbar-text link-light" style="text-align: center; margin-right: 1%; margin-left: 1%;">Департаменты </a>
+            </c:if>
+        </c:if>
+    </c:forEach>
 </nav>

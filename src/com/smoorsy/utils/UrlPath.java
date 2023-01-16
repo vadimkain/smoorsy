@@ -12,4 +12,7 @@ public class UrlPath {
     public static final String LOGIN = "/login";
     public static final String LOGOUT = "/logout";
     public static final String DEPARTMENTS = "/departments";
+    public static final String DEPARTMENTS_INSERT = "/departments/insert/{id}";
+    public static final String DEPARTMENTS_EDIT = "/departments/edit/{id}";
+    public static final String DEPARTMENTS_DELETE = "/departments/delete/{id}";
 }
