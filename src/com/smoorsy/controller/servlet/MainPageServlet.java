@@ -9,8 +9,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-import static com.smoorsy.utils.UrlPath.MAIN_PAGE;
-
 @WebServlet("/")
 public class MainPageServlet extends HttpServlet {
     @Override

@@ -1,7 +1,6 @@
 package com.smoorsy.model.service;
 
 import com.smoorsy.model.service.exception.ServiceException;
-import com.smoorsy.utils.PropertiesUtil;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -7,12 +7,15 @@ import com.smoorsy.model.entity.users_schema.User;
 import com.smoorsy.model.entity.users_schema.Users_and_Roles;
 import com.smoorsy.utils.ConnectionManager;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static java.sql.Statement.*;
+import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
 public class Users_and_RolesDao implements Dao<User, Users_and_Roles> {
 

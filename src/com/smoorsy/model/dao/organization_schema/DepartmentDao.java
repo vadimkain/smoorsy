@@ -5,12 +5,15 @@ import com.smoorsy.model.dao.exception.DaoException;
 import com.smoorsy.model.entity.organization_schema.Department;
 import com.smoorsy.utils.ConnectionManager;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static java.sql.Statement.*;
+import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
 public class DepartmentDao implements Dao<Long, Department> {
     private static final DepartmentDao INSTANCE = new DepartmentDao();

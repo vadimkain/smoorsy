@@ -1,6 +1,5 @@
-package com.smoorsy.controller.servlet;
+package com.smoorsy.controller.servlet.user;
 
-import com.smoorsy.utils.UrlPath;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

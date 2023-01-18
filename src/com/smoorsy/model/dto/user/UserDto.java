@@ -1,4 +1,4 @@
-package com.smoorsy.model.dto;
+package com.smoorsy.model.dto.user;
 
 import lombok.Builder;
 import lombok.Value;
@@ -7,11 +7,11 @@ import java.time.LocalDate;
 
 @Value
 @Builder
-public class RegistrationUserDto {
+public class UserDto {
+    Long id;
     String surname;
     String name;
     String patronymic;
-    String birthday;
+    LocalDate birthday;
     String email;
-    String password;
 }

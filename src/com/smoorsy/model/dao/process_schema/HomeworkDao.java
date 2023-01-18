@@ -7,13 +7,16 @@ import com.smoorsy.model.entity.organization_schema.Lesson_Teacher_Class;
 import com.smoorsy.model.entity.process_schema.Homework;
 import com.smoorsy.utils.ConnectionManager;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static java.sql.Statement.*;
+import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
 public class HomeworkDao implements Dao<Lesson_Teacher_Class, Homework> {
     private static final HomeworkDao INSTANCE = new HomeworkDao();

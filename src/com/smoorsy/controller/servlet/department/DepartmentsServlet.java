@@ -1,4 +1,4 @@
-package com.smoorsy.controller.servlet;
+package com.smoorsy.controller.servlet.department;
 
 import com.smoorsy.model.service.DepartmentService;
 import com.smoorsy.utils.JspHelper;

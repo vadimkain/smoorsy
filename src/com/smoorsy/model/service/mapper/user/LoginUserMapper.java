@@ -1,7 +1,8 @@
-package com.smoorsy.model.service.mapper;
+package com.smoorsy.model.service.mapper.user;
 
-import com.smoorsy.model.dto.LoginUserDto;
+import com.smoorsy.model.dto.user.LoginUserDto;
 import com.smoorsy.model.entity.users_schema.User;
+import com.smoorsy.model.service.mapper.Adapter;
 
 public class LoginUserMapper implements Adapter<LoginUserDto, User> {
 

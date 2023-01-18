@@ -1,7 +1,8 @@
-package com.smoorsy.model.service.mapper;
+package com.smoorsy.model.service.mapper.user;
 
-import com.smoorsy.model.dto.RegistrationUserDto;
+import com.smoorsy.model.dto.user.RegistrationUserDto;
 import com.smoorsy.model.entity.users_schema.User;
+import com.smoorsy.model.service.mapper.Adapter;
 import com.smoorsy.utils.LocalDateFormatter;
 
 public class RegistrationUserMapper implements Adapter<RegistrationUserDto, User> {

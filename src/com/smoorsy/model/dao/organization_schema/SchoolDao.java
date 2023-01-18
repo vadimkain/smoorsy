@@ -6,12 +6,15 @@ import com.smoorsy.model.dao.roles_schema.ManagerDao;
 import com.smoorsy.model.entity.organization_schema.School;
 import com.smoorsy.utils.ConnectionManager;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static java.sql.Statement.*;
+import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
 public class SchoolDao implements Dao<Long, School> {
     private static final SchoolDao INSTANCE = new SchoolDao();

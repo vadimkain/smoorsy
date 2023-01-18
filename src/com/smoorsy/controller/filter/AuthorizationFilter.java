@@ -1,6 +1,6 @@
 package com.smoorsy.controller.filter;
 
-import com.smoorsy.model.dto.UserDto;
+import com.smoorsy.model.dto.user.UserDto;
 import com.smoorsy.model.entity.users_schema.Role;
 import com.smoorsy.model.entity.users_schema.Users_and_Roles;
 import com.smoorsy.model.service.UserService;
@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -23,12 +24,17 @@ public class AuthorizationFilter implements Filter {
     private static final Set<String> TEACHER = Set.of(MAIN_PAGE, LOGOUT);
     private static final Set<String> CLASSROOM_TEACHER = Set.of(MAIN_PAGE, LOGOUT);
     private static final Set<String> MANAGER = Set.of(MAIN_PAGE, LOGOUT);
-    private static final Set<String> DEVELOPER = Set.of(MAIN_PAGE, LOGOUT, DEPARTMENTS);
+    private static final Set<String> DEVELOPER = Set.of(MAIN_PAGE, LOGOUT, DEPARTMENTS, DEPARTMENTS_UPDATE, DEPARTMENTS_INSERT, DEPARTMENTS_DELETE);
 
     private final UserService userService = UserService.getInstance();
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        // Устанавливаем кодировку для запросов
+        servletRequest.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        // Устанавливаем кодировку для ответов
+        servletResponse.setCharacterEncoding(StandardCharsets.UTF_8.name());
+
         String requestURI = ((HttpServletRequest) servletRequest).getRequestURI();
 
         boolean accessToUNKNOWN =

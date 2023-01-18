@@ -14,6 +14,11 @@
 <%@include file="templates/header.jsp" %>
 <div class="container-fluid">
     <c:if test="${sessionScope.USER != null}">
+        <c:if test="${not empty requestScope['departments-errors']}">
+            <c:forEach var="error" items="${requestScope['departments-errors']}">
+                <div class="invalid-feedback">${error}</div>
+            </c:forEach>
+        </c:if>
         <div class="row my-5" style="display: flex; justify-content: center; align-content: center;">
             <div class="col-lg-6 col-12">
                 <table class="table table-striped">
@@ -82,8 +87,10 @@
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                     Отмена
                                                 </button>
-                                                <form action="${pageContext.request.contextPath}/departments/delete/${department.id}"
+                                                <form action="${pageContext.request.contextPath}/departments/delete"
                                                       method="post">
+                                                    <input type="hidden" name="id" value="${department.id}">
+                                                    <input type="hidden" name="city" value="${department.city}">
                                                     <button type="submit" class="btn btn-danger">Удалить</button>
                                                 </form>
                                             </div>
@@ -104,12 +111,13 @@
                                                     департамента <b>${department.city}</b></h5>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="${pageContext.request.contextPath}/departments/edit/${department.id}"
+                                                <form action="${pageContext.request.contextPath}/departments/update"
                                                       method="post" accept-charset="UTF-8">
                                                     <div class="row form-group my-3">
                                                         <label for="cityEditId"
                                                                class="col-form-label col-4">Город</label>
                                                         <div class="col-8">
+                                                            <input type="hidden" name="id" value="${department.id}">
                                                             <input type="text"
                                                                    class="form-control ${not empty requestScope['invalid.department.city'] ? 'is-invalid' : ''}"
                                                                    id="cityEditId" name="city"

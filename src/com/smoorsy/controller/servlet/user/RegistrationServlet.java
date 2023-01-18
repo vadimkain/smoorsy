@@ -1,7 +1,7 @@
-package com.smoorsy.controller.servlet;
+package com.smoorsy.controller.servlet.user;
 
-import com.smoorsy.model.dto.RegistrationUserDto;
-import com.smoorsy.model.dto.UserDto;
+import com.smoorsy.model.dto.user.RegistrationUserDto;
+import com.smoorsy.model.dto.user.UserDto;
 import com.smoorsy.model.service.UserService;
 import com.smoorsy.model.service.validator.Error;
 import com.smoorsy.model.service.validator.exception.ValidationException;

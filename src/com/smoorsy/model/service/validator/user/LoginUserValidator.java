@@ -1,6 +1,9 @@
-package com.smoorsy.model.service.validator;
+package com.smoorsy.model.service.validator.user;
 
-import com.smoorsy.model.dto.LoginUserDto;
+import com.smoorsy.model.dto.user.LoginUserDto;
+import com.smoorsy.model.service.validator.Error;
+import com.smoorsy.model.service.validator.ValidationResult;
+import com.smoorsy.model.service.validator.Validator;
 
 public class LoginUserValidator implements Validator<LoginUserDto> {
     private static final LoginUserValidator INSTANCE = new LoginUserValidator();

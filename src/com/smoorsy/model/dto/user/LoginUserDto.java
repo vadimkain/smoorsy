@@ -1,4 +1,4 @@
-package com.smoorsy.model.dto;
+package com.smoorsy.model.dto.user;
 
 import lombok.Builder;
 import lombok.Value;

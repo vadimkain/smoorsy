@@ -5,12 +5,15 @@ import com.smoorsy.model.dao.exception.DaoException;
 import com.smoorsy.model.entity.process_schema.Lesson;
 import com.smoorsy.utils.ConnectionManager;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static java.sql.Statement.*;
+import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
 public class LessonDao implements Dao<Long, Lesson> {
     private static final LessonDao INSTANCE = new LessonDao();

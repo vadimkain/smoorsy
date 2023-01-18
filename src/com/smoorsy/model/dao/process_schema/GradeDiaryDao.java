@@ -8,7 +8,10 @@ import com.smoorsy.model.entity.process_schema.GradeDiary;
 import com.smoorsy.model.entity.roles_schema.Learner;
 import com.smoorsy.utils.ConnectionManager;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

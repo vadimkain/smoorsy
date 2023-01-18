@@ -2,22 +2,20 @@ package com.smoorsy.model.service;
 
 import com.smoorsy.model.dao.users_schema.UserDao;
 import com.smoorsy.model.dao.users_schema.Users_and_RolesDao;
-import com.smoorsy.model.dto.LoginUserDto;
-import com.smoorsy.model.dto.RegistrationUserDto;
-import com.smoorsy.model.dto.UserDto;
-import com.smoorsy.model.entity.users_schema.Role;
+import com.smoorsy.model.dto.user.LoginUserDto;
+import com.smoorsy.model.dto.user.RegistrationUserDto;
+import com.smoorsy.model.dto.user.UserDto;
 import com.smoorsy.model.entity.users_schema.User;
 import com.smoorsy.model.entity.users_schema.Users_and_Roles;
-import com.smoorsy.model.service.mapper.CheckRolesOfUserMapper;
-import com.smoorsy.model.service.mapper.LoginUserMapper;
-import com.smoorsy.model.service.mapper.RegistrationUserMapper;
-import com.smoorsy.model.service.mapper.UserMapper;
-import com.smoorsy.model.service.validator.LoginUserValidator;
-import com.smoorsy.model.service.validator.RegistrationUserValidator;
+import com.smoorsy.model.service.mapper.user.CheckRolesOfUserMapper;
+import com.smoorsy.model.service.mapper.user.LoginUserMapper;
+import com.smoorsy.model.service.mapper.user.RegistrationUserMapper;
+import com.smoorsy.model.service.mapper.user.UserMapper;
+import com.smoorsy.model.service.validator.user.LoginUserValidator;
+import com.smoorsy.model.service.validator.user.RegistrationUserValidator;
 import com.smoorsy.model.service.validator.ValidationResult;
 import com.smoorsy.model.service.validator.exception.ValidationException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

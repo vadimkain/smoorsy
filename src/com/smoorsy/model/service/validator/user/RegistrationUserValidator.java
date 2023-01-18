@@ -1,7 +1,10 @@
-package com.smoorsy.model.service.validator;
+package com.smoorsy.model.service.validator.user;
 
-import com.smoorsy.model.dto.RegistrationUserDto;
-import com.smoorsy.model.service.mapper.RegistrationUserMapper;
+import com.smoorsy.model.dto.user.RegistrationUserDto;
+import com.smoorsy.model.service.mapper.user.RegistrationUserMapper;
+import com.smoorsy.model.service.validator.Error;
+import com.smoorsy.model.service.validator.ValidationResult;
+import com.smoorsy.model.service.validator.Validator;
 import com.smoorsy.utils.LocalDateFormatter;
 
 import java.time.LocalDate;

@@ -1,7 +1,8 @@
-package com.smoorsy.model.service.mapper;
+package com.smoorsy.model.service.mapper.user;
 
-import com.smoorsy.model.dto.UserDto;
+import com.smoorsy.model.dto.user.UserDto;
 import com.smoorsy.model.entity.users_schema.User;
+import com.smoorsy.model.service.mapper.Adapter;
 
 public class UserMapper implements Adapter<User, UserDto> {
     private static final UserMapper INSTANCE = new UserMapper();
