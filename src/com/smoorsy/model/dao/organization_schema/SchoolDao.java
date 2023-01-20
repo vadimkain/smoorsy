@@ -98,6 +98,31 @@ public class SchoolDao implements Dao<Long, School> {
 
     }
 
+    public List<School> findByDepartment(Long department_id) {
+        String SQL = """
+                SELECT id, department_id, name, manager_id FROM organization_schema.schools WHERE department_id = ?
+                """;
+        try (
+                Connection connection = ConnectionManager.get();
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+        ) {
+            preparedStatement.setLong(1, department_id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            List<School> schools = new ArrayList<>();
+
+            while (resultSet.next()) {
+                schools.add(builderSchool(resultSet, connection));
+            }
+
+            return schools;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public boolean delete(Long key) {
         String SQL = """

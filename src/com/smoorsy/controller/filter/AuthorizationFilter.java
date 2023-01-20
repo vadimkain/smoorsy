@@ -24,7 +24,15 @@ public class AuthorizationFilter implements Filter {
     private static final Set<String> TEACHER = Set.of(MAIN_PAGE, LOGOUT);
     private static final Set<String> CLASSROOM_TEACHER = Set.of(MAIN_PAGE, LOGOUT);
     private static final Set<String> MANAGER = Set.of(MAIN_PAGE, LOGOUT);
-    private static final Set<String> DEVELOPER = Set.of(MAIN_PAGE, LOGOUT, DEPARTMENTS, DEPARTMENTS_UPDATE, DEPARTMENTS_INSERT, DEPARTMENTS_DELETE);
+    private static final Set<String> DEVELOPER = Set.of(
+            MAIN_PAGE,
+            LOGOUT,
+            DEPARTMENTS,
+            DEPARTMENTS_UPDATE,
+            DEPARTMENTS_INSERT,
+            DEPARTMENTS_DELETE,
+            SCHOOLS_OF_DEPARTMENT
+    );
 
     private final UserService userService = UserService.getInstance();
 

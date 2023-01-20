@@ -69,7 +69,13 @@
                     <c:forEach var="department" items="${sessionScope['USER-departments']}">
                         <tr>
                             <th scope="row">${department.id}</th>
-                            <td><a href="#">${department.city}</a></td>
+                            <td>
+                                <form action="${pageContext.request.contextPath}/schools" method="get">
+                                    <button type="submit" name="department-id" value="${department.id}" class="btn btn-link">
+                                            ${department.city}
+                                    </button>
+                                </form>
+                            </td>
                             <td>
                                 <a href="" data-bs-target="#delete-${department.id}-modal" data-bs-toggle="modal"
                                    class="text-danger">Удалить</a>

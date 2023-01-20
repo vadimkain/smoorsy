@@ -40,6 +40,10 @@
                         <a class="nav-link ${requestScope['jakarta.servlet.forward.request_uri'] == '/departments' ? 'bg-white text-primary' : 'text-white'}"
                            href="${pageContext.request.contextPath}/departments">Департаменты</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link ${requestScope['jakarta.servlet.forward.request_uri'] == '/schools' ? 'bg-white text-primary' : 'text-white'}"
+                           href="${pageContext.request.contextPath}/schools">Школы</a>
+                    </li>
                 </c:if>
             </c:forEach>
         </ul>

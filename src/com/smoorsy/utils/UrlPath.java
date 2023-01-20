@@ -13,4 +13,5 @@ public class UrlPath {
     public static final String DEPARTMENTS_INSERT = "/departments/insert";
     public static final String DEPARTMENTS_UPDATE = "/departments/update";
     public static final String DEPARTMENTS_DELETE = "/departments/delete";
+    public static final String SCHOOLS_OF_DEPARTMENT = "/schools";
 }
