@@ -1,5 +1,6 @@
-package com.smoorsy.controller.servlet.school;
+package com.smoorsy.controller.servlet.schools;
 
+import com.smoorsy.model.entity.organization_schema.School;
 import com.smoorsy.model.service.SchoolService;
 import com.smoorsy.model.service.validator.exception.ValidationException;
 import com.smoorsy.utils.JspHelper;
@@ -10,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.List;
 
 import static com.smoorsy.utils.UrlPath.SCHOOLS_OF_DEPARTMENT;
 
@@ -25,7 +27,9 @@ public class SchoolsOfDepartmentServlet extends HttpServlet {
             req.getRequestDispatcher(JspHelper.getPath("schools")).forward(req, resp);
         } else {
             try {
-                req.getSession().setAttribute("schools-of-department", schoolService.findAllByDepartment(department_id));
+                List<School> allByDepartment = schoolService.findAllByDepartment(department_id);
+                System.out.println(allByDepartment);
+                req.getSession().setAttribute("schools-of-department", allByDepartment);
                 req.getRequestDispatcher(JspHelper.getPath("schools")).forward(req, resp);
             } catch (ValidationException e) {
                 System.out.println("SchoolsOfDepartmentServlet : " + e.getErrors());

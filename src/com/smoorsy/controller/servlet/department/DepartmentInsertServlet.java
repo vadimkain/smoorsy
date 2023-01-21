@@ -36,7 +36,7 @@ public class DepartmentInsertServlet extends HttpServlet {
                         }
                     },
                     () -> {
-                        System.out.println("DepartmentInsertServlet : пользователь не получен, не удалось обновить");
+                        System.out.println("DepartmentInsertServlet : департамент не получен, не удалось добавить");
                         resp.setStatus(500);
                     }
             );

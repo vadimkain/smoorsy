@@ -31,7 +31,10 @@ public class AuthorizationFilter implements Filter {
             DEPARTMENTS_UPDATE,
             DEPARTMENTS_INSERT,
             DEPARTMENTS_DELETE,
-            SCHOOLS_OF_DEPARTMENT
+            SCHOOLS_OF_DEPARTMENT,
+            SCHOOLS_INSERT,
+            SCHOOLS_UPDATE,
+            SCHOOLS_DELETE
     );
 
     private final UserService userService = UserService.getInstance();
