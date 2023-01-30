@@ -40,10 +40,37 @@
                                                 <label for="departmentIdInsert"
                                                        class="col-form-label col-4">Департамент</label>
                                                 <div class="col-8">
+                                                    <select name="department" id="departmentIdInsert"
+                                                            class="form-select" required>
+                                                        <c:forEach var="department"
+                                                                   items="${sessionScope['USER-departments']}">
+                                                            <option value="${department.id}">${department.city}</option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group my-3">
+                                                <label for="nameIdInsert"
+                                                       class="col-form-label col-4">Название</label>
+                                                <div class="col-8">
                                                     <input type="text"
                                                            class="form-control"
-                                                           id="departmentIdInsert" name="department"
+                                                           id="nameIdInsert" name="name"
                                                            required>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group my-3">
+                                                <label for="managerIdInsert"
+                                                       class="col-form-label col-4">Менеджер</label>
+                                                <div class="col-8">
+                                                    <select name="manager" id="managerIdInsert"
+                                                            class="form-select" required>
+                                                        <c:forEach var="manager" items="${sessionScope['managers']}">
+                                                            <option value="${manager['user']}">
+                                                                    ${manager['user'].surname} ${manager['user'].name} ${manager['user'].patronymic}
+                                                            </option>
+                                                        </c:forEach>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -67,6 +94,18 @@
                                 <td>${schoolOfDepartment['department'].city}</td>
                                 <td>${schoolOfDepartment.name}</td>
                                 <td>${schoolOfDepartment['manager']['user'].surname} ${schoolOfDepartment['manager']['user'].name} ${schoolOfDepartment['manager']['user'].patronymic}</td>
+                                <td>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${sessionScope['schools'] != null}">
+                        <c:forEach var="school" items="${sessionScope['schools']}">
+                            <tr>
+                                <th scope="col">${school.id}</th>
+                                <td>${school['department'].city}</td>
+                                <td>${school.name}</td>
+                                <td>${school['manager']['user'].surname} ${school['manager']['user'].name} ${school['manager']['user'].patronymic}</td>
                                 <td>
                                 </td>
                             </tr>

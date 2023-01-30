@@ -1,6 +1,5 @@
 package com.smoorsy.controller.servlet.department;
 
-import com.smoorsy.model.dto.department.DepartmentDto;
 import com.smoorsy.model.dto.department.DepartmentInsertDto;
 import com.smoorsy.model.service.DepartmentService;
 import com.smoorsy.model.service.validator.Error;

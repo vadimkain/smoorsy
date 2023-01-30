@@ -1,5 +1,7 @@
 package com.smoorsy.controller.servlet.schools;
 
+import com.smoorsy.model.dao.roles_schema.ManagerDao;
+import com.smoorsy.model.dto.school.SchoolDto;
 import com.smoorsy.model.entity.organization_schema.School;
 import com.smoorsy.model.service.SchoolService;
 import com.smoorsy.model.service.validator.exception.ValidationException;
@@ -18,10 +20,20 @@ import static com.smoorsy.utils.UrlPath.SCHOOLS_OF_DEPARTMENT;
 @WebServlet(SCHOOLS_OF_DEPARTMENT)
 public class SchoolsOfDepartmentServlet extends HttpServlet {
     private final SchoolService schoolService = SchoolService.getInstance();
+    private final ManagerDao managerDao = ManagerDao.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String department_id = req.getParameter("department-id");
+
+        SchoolDto schoolDto = SchoolDto.builder()
+                .id(req.getParameter("id"))
+                .department_id(req.getParameter("department_id"))
+                .name(req.getParameter("name"))
+                .manager_id(req.getParameter("manager_id"))
+                .build();
+
+        req.getSession().setAttribute("managers", managerDao.findAll());
         if (department_id == null) {
             req.getSession().setAttribute("schools", schoolService.findAll());
             req.getRequestDispatcher(JspHelper.getPath("schools")).forward(req, resp);

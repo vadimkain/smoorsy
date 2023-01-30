@@ -5,8 +5,8 @@ import com.smoorsy.model.dto.department.DepartmentDto;
 import com.smoorsy.model.dto.department.DepartmentInsertDto;
 import com.smoorsy.model.entity.organization_schema.Department;
 import com.smoorsy.model.service.mapper.department.DepartmentMapper;
-import com.smoorsy.model.service.validator.department.DepartmentValidator;
 import com.smoorsy.model.service.validator.ValidationResult;
+import com.smoorsy.model.service.validator.department.DepartmentValidator;
 import com.smoorsy.model.service.validator.exception.ValidationException;
 
 import java.util.List;

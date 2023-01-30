@@ -11,10 +11,10 @@ import com.smoorsy.model.service.mapper.user.CheckRolesOfUserMapper;
 import com.smoorsy.model.service.mapper.user.LoginUserMapper;
 import com.smoorsy.model.service.mapper.user.RegistrationUserMapper;
 import com.smoorsy.model.service.mapper.user.UserMapper;
-import com.smoorsy.model.service.validator.user.LoginUserValidator;
-import com.smoorsy.model.service.validator.user.RegistrationUserValidator;
 import com.smoorsy.model.service.validator.ValidationResult;
 import com.smoorsy.model.service.validator.exception.ValidationException;
+import com.smoorsy.model.service.validator.user.LoginUserValidator;
+import com.smoorsy.model.service.validator.user.RegistrationUserValidator;
 
 import java.util.List;
 import java.util.Optional;
