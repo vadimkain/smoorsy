@@ -16,7 +16,6 @@ import java.time.LocalDate;
 public class GradeDiary {
     private Lesson_Teacher_Class lessonTeacherClass;
     private LocalDate date;
-    // TODO: заменить дискретное значение на Enum
     private Short grade;
     private Learner learner;
 }

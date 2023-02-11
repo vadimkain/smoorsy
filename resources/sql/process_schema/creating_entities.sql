@@ -2,7 +2,6 @@ CREATE SCHEMA IF NOT EXISTS process_schema;
 CREATE TABLE IF NOT EXISTS process_schema.homeworks
 (
     lesson_teacher_class SERIAL REFERENCES organization_schema.lessons_teachers_classes (id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
-    /* TODO: исправить говнокод с датой */
     "date"               TIMESTAMP DEFAULT CURRENT_DATE                                                                          NOT NULL,
     "temp"               TIMESTAMP                                                                                               NOT NULL,
     description          varchar(600)                                                                                            NOT NULL,
@@ -12,7 +11,6 @@ CREATE TABLE IF NOT EXISTS process_schema.homeworks
 CREATE TABLE IF NOT EXISTS process_schema.schedules
 (
     lesson_teacher_class SERIAL REFERENCES organization_schema.lessons_teachers_classes (id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
-    /* TODO: разобраться, как сделать календарь в postgres. Сейчас используется простой подход. */
     day_of_week          DATE                                                                                                    NOT NULL,
     time_begin           TIME                                                                                                    NOT NULL,
     time_end             TIME CHECK ( time_begin < time_end )                                                                    NOT NULL,

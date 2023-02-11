@@ -1,0 +1,130 @@
+CREATE SCHEMA IF NOT EXISTS users_schema;
+CREATE TABLE IF NOT EXISTS users_schema.users
+(
+    id         SERIAL PRIMARY KEY                                               NOT NULL,
+    surname    varchar(64)                                                      NOT NULL,
+    name       varchar(64)                                                      NOT NULL,
+    patronymic varchar(64)                                                      NOT NULL,
+    birthday   DATE CHECK ('1940-01-01' < birthday AND birthday < '2018-01-01') NOT NULL,
+    email      varchar(120) UNIQUE                                              NOT NULL,
+    password   varchar(120)                                                     NOT NULL
+);
+
+CREATE TYPE users_schema.roles AS ENUM ('LEARNER', 'TEACHER', 'CLASSROOM_TEACHER', 'MANAGER', 'DEVELOPER');
+
+CREATE TABLE IF NOT EXISTS users_schema.users_and_roles
+(
+    user_id   SERIAL REFERENCES users_schema.users (id) ON DELETE CASCADE NOT NULL,
+    role_name users_schema.roles                                          NOT NULL,
+    CONSTRAINT UC_users_and_roles UNIQUE (user_id, role_name)
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UNIQUE_INDEX_users_and_roles
+    ON users_schema.users_and_roles (user_id, role_name);
+
+CREATE SCHEMA IF NOT EXISTS roles_schema;
+CREATE TABLE IF NOT EXISTS roles_schema.learner
+(
+    user_id SERIAL REFERENCES users_schema.users (id) ON DELETE CASCADE NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS roles_schema.teacher
+(
+    user_id SERIAL REFERENCES users_schema.users (id) ON DELETE CASCADE NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS roles_schema.classroom_teacher
+(
+    user_id SERIAL REFERENCES users_schema.users (id) ON DELETE CASCADE NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS roles_schema.manager
+(
+    user_id SERIAL REFERENCES users_schema.users (id) ON DELETE CASCADE NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS roles_schema.developer
+(
+    user_id SERIAL REFERENCES users_schema.users (id) ON DELETE CASCADE NOT NULL UNIQUE
+);
+
+CREATE SCHEMA IF NOT EXISTS process_schema;
+CREATE TABLE IF NOT EXISTS process_schema.homeworks
+(
+    lesson_teacher_class SERIAL REFERENCES organization_schema.lessons_teachers_classes (id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+    "date"               TIMESTAMP DEFAULT CURRENT_DATE                                                                          NOT NULL,
+    "temp"               TIMESTAMP                                                                                               NOT NULL,
+    description          varchar(600)                                                                                            NOT NULL,
+    file                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS process_schema.schedules
+(
+    lesson_teacher_class SERIAL REFERENCES organization_schema.lessons_teachers_classes (id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+    day_of_week          DATE                                                                                                    NOT NULL,
+    time_begin           TIME                                                                                                    NOT NULL,
+    time_end             TIME CHECK ( time_begin < time_end )                                                                    NOT NULL,
+    rest_time            TIME                                                                                                    NOT NULL,
+    CONSTRAINT UC_schedules UNIQUE (lesson_teacher_class, time_begin, time_end, day_of_week)
+);
+
+CREATE TABLE IF NOT EXISTS process_schema.grade_diary
+(
+    lesson_teacher_class SERIAL REFERENCES organization_schema.lessons_teachers_classes (id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+    "date"               DATE DEFAULT CURRENT_DATE                                                                               NOT NULL,
+    grade                SMALLINT CHECK ( 1 <= grade_diary.grade AND grade_diary.grade <= 12 )                                   NOT NULL,
+    learner_id           SERIAL REFERENCES roles_schema.learner (user_id) ON DELETE CASCADE ON UPDATE CASCADE                    NOT NULL
+);
+
+CREATE SCHEMA IF NOT EXISTS organization_schema;
+
+CREATE TABLE IF NOT EXISTS organization_schema.departments
+(
+    id   SERIAL PRIMARY KEY NOT NULL,
+    city varchar(64)        NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS organization_schema.schools
+(
+    id            SERIAL PRIMARY KEY                                                       NOT NULL,
+    department_id SERIAL REFERENCES organization_schema.departments (id) ON DELETE CASCADE NOT NULL,
+    "name"        varchar(64)                                                              NOT NULL,
+    manager_id    SERIAL REFERENCES roles_schema.manager (user_id) ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT UC_school UNIQUE (department_id, "name")
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UNIQUE_INDEX_schools
+    ON organization_schema.schools (department_id, "name");
+
+CREATE TABLE IF NOT EXISTS organization_schema.classes
+(
+    id                   SERIAL PRIMARY KEY                                                                     NOT NULL,
+    school_id            SERIAL REFERENCES organization_schema.schools (id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+    classroom_teacher_id SERIAL REFERENCES roles_schema.classroom_teacher (user_id) ON DELETE SET NULL ON UPDATE CASCADE,
+    title                varchar(16)                                                                            NOT NULL
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UNIQUE_INDEX_classes
+    ON organization_schema.classes (school_id, classroom_teacher_id, title);
+
+CREATE TABLE IF NOT EXISTS organization_schema.learners_and_classes
+(
+    learner_id SERIAL REFERENCES roles_schema.learner (user_id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+    class_id   SERIAL REFERENCES organization_schema.classes (id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT UC_learners_and_classes UNIQUE (learner_id, class_id)
+);
+
+CREATE TABLE IF NOT EXISTS process_schema.lessons
+(
+    id    SERIAL PRIMARY KEY NOT NULL,
+    title varchar(64) UNIQUE NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS organization_schema.lessons_teachers_classes
+(
+    id         SERIAL PRIMARY KEY                                                 NOT NULL,
+    teacher_id SERIAL REFERENCES roles_schema.teacher (user_id) ON DELETE CASCADE NOT NULL,
+    class_id   SERIAL REFERENCES organization_schema.classes (id) ON DELETE SET NULL ON UPDATE CASCADE,
+    lesson_id  SERIAL REFERENCES process_schema.lessons (id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT UC_lessons_teachers_classes UNIQUE (class_id, lesson_id)
+);

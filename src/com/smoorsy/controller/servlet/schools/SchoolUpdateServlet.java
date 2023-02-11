@@ -12,7 +12,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-import static com.smoorsy.utils.UrlPath.*;
+import static com.smoorsy.utils.UrlPath.SCHOOLS_OF_DEPARTMENT;
+import static com.smoorsy.utils.UrlPath.SCHOOLS_UPDATE;
 
 @WebServlet(SCHOOLS_UPDATE)
 public class SchoolUpdateServlet extends HttpServlet {

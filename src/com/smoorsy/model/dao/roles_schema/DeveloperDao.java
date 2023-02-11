@@ -36,6 +36,7 @@ public class DeveloperDao implements Dao<Long, Developer> {
         }
     }
 
+    @Override
     public List<Developer> findAll() {
         String SQL = """
                 SELECT user_id FROM roles_schema.developer;
